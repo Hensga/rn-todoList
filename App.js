@@ -69,15 +69,17 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E8EAED',
+    backgroundColor: '#EAE6DA',
   },
   tasksWrapper: {
     paddingTop: 80,
     paddingHorizontal: 20,
   },
   sectionTitle: {
-    fontSize: 24,
+    fontSize: 44,
     fontWeight: 'bold',
+    fontFamily: 'Helvetica',
+    color: '#544039',
   },
   items: {
     marginTop: 30,
@@ -98,6 +100,7 @@ const styles = StyleSheet.create({
     borderColor: '#C0C0C0',
     borderWidth: 1,
     width: 250,
+    fontFamily: 'Courier New',
   },
   addWrapper: {
     width: 60,
