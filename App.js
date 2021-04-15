@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import {
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import Task from './components/Task';
 
 export default function App() {
@@ -15,6 +22,14 @@ export default function App() {
           <Task text={'Aufgabe 2'} />
         </View>
       </View>
+
+      {/* Aufgabe erstellen */}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.writeTaskWrapper}
+      >
+        <TextInput style={styles.input} placeholder={'Ey! Lass was machen'} />
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -32,5 +47,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-  items: {},
+  items: {
+    marginTop: 30,
+  },
 });
