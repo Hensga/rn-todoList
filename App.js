@@ -86,7 +86,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#fcfaf9',
   },
   headerWrapper: {
     flexDirection: 'row',
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     fontSize: 44,
     fontWeight: 'bold',
     fontFamily: 'Helvetica',
-    color: '#544039',
+    color: '#333333',
   },
   items: {
     marginTop: 30,
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     backgroundColor: '#FFF',
     borderRadius: 60,
-    borderColor: '#C0C0C0',
+    borderColor: '#508484',
     borderWidth: 1,
     width: 250,
     fontFamily: 'Courier New',
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: '#C0C0C0',
+    borderColor: '#508484',
     borderWidth: 1,
   },
   addText: {},
