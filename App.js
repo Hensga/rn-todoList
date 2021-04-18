@@ -8,6 +8,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  ScrollView,
 } from 'react-native';
 import Task from './components/Task';
 
@@ -29,23 +30,30 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      {/* Aufgaben für heute */}
-      <View style={styles.tasksWrapper}>
-        <Text style={styles.sectionTitle}>StandUp Aufgaben</Text>
+      <ScrollView style={styles.scrollView}>
+        {/* Aufgaben für heute */}
 
-        <View style={styles.items}>
-          {/* Aufgabenbereich */}
-          {taskItems.map((item, index) => {
-            return (
-              <TouchableOpacity key={index} onPress={() => completeTask(index)}>
-                <Task text={item} />
-              </TouchableOpacity>
-            );
-          })}
+        <View style={styles.tasksWrapper}>
+          <Text style={styles.sectionTitle}>StandUp Aufgaben</Text>
+
+          <View style={styles.items}>
+            {/* Aufgabenbereich */}
+            {taskItems.map((item, index) => {
+              return (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => completeTask(index)}
+                >
+                  <Task text={item} />
+                </TouchableOpacity>
+              );
+            })}
+          </View>
         </View>
-      </View>
+      </ScrollView>
 
       {/* Aufgabe erstellen */}
+
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.writeTaskWrapper}
@@ -56,7 +64,11 @@ export default function App() {
           value={task}
           onChangeText={(text) => setTask(text)}
         />
-        <TouchableOpacity onPress={() => handleAddTask()}>
+        <TouchableOpacity
+          onPress={() => {
+            handleAddTask();
+          }}
+        >
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
@@ -84,9 +96,11 @@ const styles = StyleSheet.create({
   items: {
     marginTop: 30,
   },
+  scrollView: {
+    flexGrow: 1,
+  },
   writeTaskWrapper: {
-    position: 'absolute',
-    bottom: 60,
+    height: 130,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
