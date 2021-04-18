@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   View,
   ScrollView,
+  Image,
 } from 'react-native';
 import Task from './components/Task';
 
@@ -28,14 +29,18 @@ export default function App() {
     setTaskItems(itemsCopy);
   };
 
+  const bearyDustLogo = require('./assets/bearydust-logo-bear-with-text.png');
+
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView}>
         {/* Aufgaben für heute */}
 
         <View style={styles.tasksWrapper}>
-          <Text style={styles.sectionTitle}>StandUp Aufgaben</Text>
-
+          <View style={styles.headerWrapper}>
+            <Text style={styles.sectionTitle}>StandUp Aufgaben</Text>
+            <Image style={styles.tinyLogo} source={bearyDustLogo}></Image>
+          </View>
           <View style={styles.items}>
             {/* Aufgabenbereich */}
             {taskItems.map((item, index) => {
@@ -81,7 +86,16 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EAE6DA',
+    backgroundColor: '#FFF',
+  },
+  headerWrapper: {
+    flexDirection: 'row',
+  },
+  tinyLogo: {
+    width: 120,
+    height: 120,
+    marginTop: -10,
+    marginLeft: 15,
   },
   tasksWrapper: {
     paddingTop: 80,
