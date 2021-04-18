@@ -10,6 +10,7 @@ import {
   View,
   ScrollView,
   Image,
+  SafeAreaView,
 } from 'react-native';
 import Task from './components/Task';
 
@@ -32,7 +33,7 @@ export default function App() {
   const bearyDustLogo = require('./assets/bearydust-logo-bear-with-text.png');
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         {/* Aufgaben für heute */}
 
@@ -79,7 +80,7 @@ export default function App() {
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -98,7 +99,6 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   tasksWrapper: {
-    paddingTop: 80,
     paddingHorizontal: 20,
   },
   sectionTitle: {
