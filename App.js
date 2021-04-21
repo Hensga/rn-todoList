@@ -1,4 +1,8 @@
-import React, { useState } from 'react';
+if (__DEV__) {
+  import('./ReactotronConfig').then(() => console.log('Reactotron Configured'));
+}
+import Reactotron, { asyncStorage } from 'reactotron-react-native';
+import React, { useState, useEffect } from 'react';
 import {
   Keyboard,
   KeyboardAvoidingView,
@@ -12,18 +16,47 @@ import {
   Image,
   SafeAreaView,
 } from 'react-native';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Task from './components/Task';
 
 export default function App() {
-  const [task, setTask] = useState();
+  const [task, setTask] = useState(task);
   const [taskItems, setTaskItems] = useState([]);
+
+  const getData = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('TASKS');
+      Reactotron.log(jsonValue);
+      setTaskItems(jsonValue != null ? JSON.parse(jsonValue) : null);
+
+      // if (value !== null) {
+      //   setTask(value);
+      // }
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  const storeData = async () => {
+    try {
+      const jsonValue = JSON.stringify(taskItems);
+      await AsyncStorage.setItem('TASKS', jsonValue);
+    } catch (e) {
+      alert(e);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   const handleAddTask = () => {
     Keyboard.dismiss();
     setTaskItems([...taskItems, task]);
+    storeData();
     setTask(null);
   };
-
   const completeTask = (index) => {
     let itemsCopy = [...taskItems];
     itemsCopy.splice(index, 1);
