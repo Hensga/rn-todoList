@@ -21,29 +21,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Task from './components/Task';
 
 export default function App() {
-  const [task, setTask] = useState(task);
+  const [task, setTask] = useState();
   const [taskItems, setTaskItems] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const getData = async () => {
     try {
       const jsonValue = await AsyncStorage.getItem('TASKS');
-      Reactotron.log(jsonValue);
-      setTaskItems(jsonValue != null ? JSON.parse(jsonValue) : null);
-
-      // if (value !== null) {
-      //   setTask(value);
-      // }
+      const jsonValue2 = JSON.parse(jsonValue);
+      if (jsonValue2 !== null) {
+        setTaskItems(jsonValue2);
+      }
     } catch (e) {
       alert(e);
-    }
-  };
-
-  const storeData = async () => {
-    try {
-      const jsonValue = JSON.stringify(taskItems);
-      await AsyncStorage.setItem('TASKS', jsonValue);
-    } catch (e) {
-      alert(e);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -51,15 +43,35 @@ export default function App() {
     getData();
   }, []);
 
+  const saveData = async () => {
+    if (!loading) {
+      try {
+        const jsonValue = await AsyncStorage.setItem(
+          'TASKS',
+          JSON.stringify(taskItems)
+        );
+        return jsonValue;
+        Reactotron.log(jsonValue);
+      } catch (e) {
+        alert(e);
+      }
+    }
+  };
+
+  useEffect(() => {
+    saveData();
+  }, [taskItems]);
+
   const handleAddTask = () => {
     Keyboard.dismiss();
     setTaskItems([...taskItems, task]);
-    storeData();
     setTask(null);
   };
+
   const completeTask = (index) => {
     let itemsCopy = [...taskItems];
     itemsCopy.splice(index, 1);
+
     setTaskItems(itemsCopy);
   };
 
